@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Balaji Audios & Electricals | Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d9a4e67d.js" crossorigin="anonymous"></script>
+  <style>
+    body { background: linear-gradient(135deg, #1a202c, #2d3748); min-height: 100vh; }
+    .glass-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+    .gradient-text { background: linear-gradient(90deg, #06b6d4, #3b82f6); -webkit-background-clip: text; color: transparent; }
+    .fade-in { animation: fadeIn 1s ease-in-out forwards; }
+    @keyframes fadeIn { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+  </style>
+</head>
+<body class="text-white flex items-center justify-center p-6">
+  <div id="app" class="w-full max-w-5xl fade-in">
+    <!-- Login Section -->
+    <div id="login-section" class="glass-card p-10 rounded-3xl shadow-2xl text-center">
+      <h1 class="text-4xl font-bold mb-8 gradient-text">Balaji Audios & Electricals</h1>
+      <p class="text-gray-300 mb-6">Login to access your electrician toolkit and services dashboard</p>
+      <div class="space-y-4 max-w-sm mx-auto">
+        <input type="text" id="username" placeholder="Username" class="w-full p-3 rounded-xl bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input type="password" id="password" placeholder="Password" class="w-full p-3 rounded-xl bg-gray-800 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <button onclick="login()" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-xl font-semibold">Login</button>
+        <div class="flex items-center justify-center space-x-3">
+          <div class="h-px w-1/4 bg-gray-600"></div>
+          <span class="text-gray-400 text-sm">or</span>
+          <div class="h-px w-1/4 bg-gray-600"></div>
+        </div>
+        <button onclick="googleLogin()" class="w-full bg-red-500 hover:bg-red-600 p-3 rounded-xl font-semibold flex items-center justify-center space-x-2">
+          <i class="fab fa-google"></i>
+          <span>Login with Google</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="hidden fade-in">
+      <nav class="flex justify-between items-center p-6 bg-gray-900 rounded-3xl mb-6">
+        <h2 class="text-2xl font-bold gradient-text">Welcome, <span id="userDisplay">User</span></h2>
+        <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-xl">Logout</button>
+      </nav>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass-card p-6 rounded-2xl hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2">Our Services</h3>
+          <ul class="text-gray-300 space-y-1">
+            <li>⚡ Home Wiring</li>
+            <li>🔊 Speaker & Audio System Setup</li>
+            <li>📷 CCTV Installation</li>
+            <li>🌞 Solar System Setup</li>
+            <li>💡 Inverter & Repair Works</li>
+          </ul>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2">Toolkits</h3>
+          <p class="text-gray-300 mb-4">Access your electrician tools and calculators.</p>
+          <a href="toolkit.html" class="inline-block bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl">Open Toolkit</a>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold mb-2">Contact & Support</h3>
+          <p class="text-gray-300 mb-2">Need help? Contact us below:</p>
+          <a href="mailto:balajipmb6@gmail.com" class="text-blue-400 hover:underline">balajipmb6@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user && pass) {
+        localStorage.setItem('user', user);
+        document.getElementById('userDisplay').textContent = user;
+        document.getElementById('login-section').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+      } else {
+        alert('Please enter valid credentials');
+      }
+    }
+
+    function googleLogin() {
+      alert('Google login coming soon!');
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('login-section').classList.remove('hidden');
+    }
+
+    window.onload = () => {
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        document.getElementById('userDisplay').textContent = savedUser;
+        document.getElementById('login-section').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>
